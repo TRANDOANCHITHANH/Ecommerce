@@ -39,20 +39,23 @@
                                 <i class="fa fa-star"></i>
                             </div>
                             <p class="mb-4">@Model.MoTaNgan</p>
+                        <form asp-controller="Cart" asp-action="AddToCart" asp-route-id="@Model.MaHh">
                             <div class="input-group quantity mb-5" style="width: 100px;">
                                 <div class="input-group-btn">
-                                    <button class="btn btn-sm btn-minus rounded-circle bg-light border">
+                                    <button class="btn btn-sm btn-minus rounded-circle bg-light border" type="button">
                                         <i class="fa fa-minus"></i>
                                     </button>
                                 </div>
-                                <input type="text" class="form-control form-control-sm text-center border-0" value="1">
+                                <input type="text" class="form-control form-control-sm text-center border-0" value="1" name="quantity">
                                 <div class="input-group-btn">
-                                    <button class="btn btn-sm btn-plus rounded-circle bg-light border">
+                                    <button class="btn btn-sm btn-plus rounded-circle bg-light border" type="button">
                                         <i class="fa fa-plus"></i>
                                     </button>
                                 </div>
                             </div>
-                            <a href="#" class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Thêm vào giỏ hàng</a>
+                            <button class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary">
+                                <i class="fa fa-shopping-bag me-2 text-primary"></i>Mua hàng</button>
+                        </form>
                         </div>
                         <div class="col-lg-12">
                             <nav>
@@ -121,7 +124,7 @@
                                 </div>
                                 <div class="tab-pane" id="nav-mission" role="tabpanel" aria-labelledby="nav-mission-tab">
                                     <div class="d-flex">
-                                        <img src="img/avatar.jpg" class="img-fluid rounded-circle p-3" style="width: 100px; height: 100px;" alt="">
+                                        <img src="~/img/avatar.jpg" class="img-fluid rounded-circle p-3" style="width: 100px; height: 100px;" alt="">
                                         <div class="">
                                             <p class="mb-2" style="font-size: 14px;">April 12, 2024</p>
                                             <div class="d-flex justify-content-between">
@@ -141,7 +144,7 @@
                                         </div>
                                     </div>
                                     <div class="d-flex">
-                                        <img src="img/avatar.jpg" class="img-fluid rounded-circle p-3" style="width: 100px; height: 100px;" alt="">
+                                        <img src="~/img/avatar.jpg" class="img-fluid rounded-circle p-3" style="width: 100px; height: 100px;" alt="">
                                         <div class="">
                                             <p class="mb-2" style="font-size: 14px;">April 12, 2024</p>
                                             <div class="d-flex justify-content-between">
@@ -213,17 +216,14 @@
                 <div class="col-lg-4 col-xl-3">
                     <div class="row g-4 fruite">
                         <div class="col-lg-12">
-                            <div class="input-group w-100 mx-auto d-flex mb-4">
-                                <input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1">
-                                <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
-                            </div>
+                            @await Html.PartialAsync("_TimKiemPanel")
                         @await Component.InvokeAsync("MenuLoai")
                         </div>
                         <div class="col-lg-12">
                             <h4 class="mb-4">Featured products</h4>
                             <div class="d-flex align-items-center justify-content-start">
                                 <div class="rounded" style="width: 100px; height: 100px;">
-                                    <img src="img/featur-1.jpg" class="img-fluid rounded" alt="Image">
+                                    <img src="~/img/featur-1.jpg" class="img-fluid rounded" alt="Image">
                                 </div>
                                 <div>
                                     <h6 class="mb-2">Big Banana</h6>
@@ -242,7 +242,7 @@
                             </div>
                             <div class="d-flex align-items-center justify-content-start">
                                 <div class="rounded" style="width: 100px; height: 100px;">
-                                    <img src="img/featur-2.jpg" class="img-fluid rounded" alt="">
+                                    <img src="~/img/featur-2.jpg" class="img-fluid rounded" alt="">
                                 </div>
                                 <div>
                                     <h6 class="mb-2">Big Banana</h6>
@@ -261,7 +261,7 @@
                             </div>
                             <div class="d-flex align-items-center justify-content-start">
                                 <div class="rounded" style="width: 100px; height: 100px;">
-                                    <img src="img/featur-3.jpg" class="img-fluid rounded" alt="">
+                                    <img src="~/img/featur-3.jpg" class="img-fluid rounded" alt="">
                                 </div>
                                 <div>
                                     <h6 class="mb-2">Big Banana</h6>
@@ -280,7 +280,7 @@
                             </div>
                             <div class="d-flex align-items-center justify-content-start">
                                 <div class="rounded me-4" style="width: 100px; height: 100px;">
-                                    <img src="img/vegetable-item-4.jpg" class="img-fluid rounded" alt="">
+                                    <img src="~/img/vegetable-item-4.jpg" class="img-fluid rounded" alt="">
                                 </div>
                                 <div>
                                     <h6 class="mb-2">Big Banana</h6>
@@ -299,7 +299,7 @@
                             </div>
                             <div class="d-flex align-items-center justify-content-start">
                                 <div class="rounded me-4" style="width: 100px; height: 100px;">
-                                    <img src="img/vegetable-item-5.jpg" class="img-fluid rounded" alt="">
+                                    <img src="~/img/vegetable-item-5.jpg" class="img-fluid rounded" alt="">
                                 </div>
                                 <div>
                                     <h6 class="mb-2">Big Banana</h6>
@@ -318,7 +318,7 @@
                             </div>
                             <div class="d-flex align-items-center justify-content-start">
                                 <div class="rounded me-4" style="width: 100px; height: 100px;">
-                                    <img src="img/vegetable-item-6.jpg" class="img-fluid rounded" alt="">
+                                    <img src="~/img/vegetable-item-6.jpg" class="img-fluid rounded" alt="">
                                 </div>
                                 <div>
                                     <h6 class="mb-2">Big Banana</h6>
@@ -341,7 +341,7 @@
                         </div>
                         <div class="col-lg-12">
                             <div class="position-relative">
-                                <img src="img/banner-fruits.jpg" class="img-fluid w-100 rounded" alt="">
+                                <img src="~/img/banner-fruits.jpg" class="img-fluid w-100 rounded" alt="">
                                 <div class="position-absolute" style="top: 50%; right: 10px; transform: translateY(-50%);">
                                     <h3 class="text-secondary fw-bold">Fresh <br> Fruits <br> Banner</h3>
                                 </div>
@@ -355,7 +355,7 @@
                 <div class="owl-carousel vegetable-carousel justify-content-center">
                     <div class="border border-primary rounded position-relative vesitable-item">
                         <div class="vesitable-img">
-                            <img src="img/vegetable-item-6.jpg" class="img-fluid w-100 rounded-top" alt="">
+                            <img src="~/img/vegetable-item-6.jpg" class="img-fluid w-100 rounded-top" alt="">
                         </div>
                         <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">Vegetable</div>
                         <div class="p-4 pb-0 rounded-bottom">
@@ -369,7 +369,7 @@
                     </div>
                     <div class="border border-primary rounded position-relative vesitable-item">
                         <div class="vesitable-img">
-                            <img src="img/vegetable-item-1.jpg" class="img-fluid w-100 rounded-top" alt="">
+                            <img src="~/img/vegetable-item-1.jpg" class="img-fluid w-100 rounded-top" alt="">
                         </div>
                         <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">Vegetable</div>
                         <div class="p-4 pb-0 rounded-bottom">
@@ -383,7 +383,7 @@
                     </div>
                     <div class="border border-primary rounded position-relative vesitable-item">
                         <div class="vesitable-img">
-                            <img src="img/vegetable-item-3.png" class="img-fluid w-100 rounded-top bg-light" alt="">
+                            <img src="~/img/vegetable-item-3.png" class="img-fluid w-100 rounded-top bg-light" alt="">
                         </div>
                         <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">Vegetable</div>
                         <div class="p-4 pb-0 rounded-bottom">
@@ -397,7 +397,7 @@
                     </div>
                     <div class="border border-primary rounded position-relative vesitable-item">
                         <div class="vesitable-img">
-                            <img src="img/vegetable-item-4.jpg" class="img-fluid w-100 rounded-top" alt="">
+                            <img src="~/img/vegetable-item-4.jpg" class="img-fluid w-100 rounded-top" alt="">
                         </div>
                         <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">Vegetable</div>
                         <div class="p-4 pb-0 rounded-bottom">
@@ -411,7 +411,7 @@
                     </div>
                     <div class="border border-primary rounded position-relative vesitable-item">
                         <div class="vesitable-img">
-                            <img src="img/vegetable-item-5.jpg" class="img-fluid w-100 rounded-top" alt="">
+                            <img src="~/img/vegetable-item-5.jpg" class="img-fluid w-100 rounded-top" alt="">
                         </div>
                         <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">Vegetable</div>
                         <div class="p-4 pb-0 rounded-bottom">
@@ -425,7 +425,7 @@
                     </div>
                     <div class="border border-primary rounded position-relative vesitable-item">
                         <div class="vesitable-img">
-                            <img src="img/vegetable-item-6.jpg" class="img-fluid w-100 rounded-top" alt="">
+                            <img src="~/img/vegetable-item-6.jpg" class="img-fluid w-100 rounded-top" alt="">
                         </div>
                         <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">Vegetable</div>
                         <div class="p-4 pb-0 rounded-bottom">
@@ -439,7 +439,7 @@
                     </div>
                     <div class="border border-primary rounded position-relative vesitable-item">
                         <div class="vesitable-img">
-                            <img src="img/vegetable-item-5.jpg" class="img-fluid w-100 rounded-top" alt="">
+                            <img src="~/img/vegetable-item-5.jpg" class="img-fluid w-100 rounded-top" alt="">
                         </div>
                         <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">Vegetable</div>
                         <div class="p-4 pb-0 rounded-bottom">
@@ -453,7 +453,7 @@
                     </div>
                     <div class="border border-primary rounded position-relative vesitable-item">
                         <div class="vesitable-img">
-                            <img src="img/vegetable-item-6.jpg" class="img-fluid w-100 rounded-top" alt="">
+                            <img src="~/img/vegetable-item-6.jpg" class="img-fluid w-100 rounded-top" alt="">
                         </div>
                         <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">Vegetable</div>
                         <div class="p-4 pb-0 rounded-bottom">
