@@ -1,4 +1,4 @@
-using Ecommerce.Data;
+﻿using Ecommerce.Data;
 using Ecommerce.Helpers;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
@@ -27,6 +27,14 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     options.LoginPath = "/KhachHang/DangNhap";
     options.AccessDeniedPath = "/AccessDenied";
 });
+//Dang ki PalpayClient dạng Singleton() - chi co 1 instance duy nhat trong toan ung dung
+builder.Services.AddSingleton(x=> new PaypalClient(
+    builder.Configuration["PaypalOptions:AppId"],
+    builder.Configuration["PaypalOptions:AppScret"],
+    builder.Configuration["PaypalOptions:Mode"]
+  
+    ));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
