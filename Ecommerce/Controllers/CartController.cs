@@ -1,25 +1,32 @@
-﻿using Ecommerce.Data;
-using Ecommerce.ViewModels;
-using Microsoft.AspNetCore.Mvc;
-using Ecommerce.Helpers;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-namespace Ecommerce.Controllers
-{
-    public class CartController : Controller
-    {
-        private readonly EcommerceContext db;
-		private readonly PaypalClient _paypalClient;
+using Ecommerce.Services;
+using Ecommerce.Data;
+using Ecommerce.Helpers;
+using Ecommerce.ViewModels;
 
-		public CartController(EcommerceContext context,PaypalClient paypalClient) {
-            db = context;
-            _paypalClient = paypalClient;
-        }
-       
-        public List<CartItem> Cart => HttpContext.Session.Get<List<CartItem>>(MySetting.CART_KEY) ?? new List<CartItem>();
+namespace ECommerceMVC.Controllers
+{
+	public class CartController : Controller
+	{
+		private readonly PaypalClient _paypalClient;
+		private readonly EcommerceContext db;
+		private readonly IVnPayService _vnPayservice;
+
+		public CartController(EcommerceContext context, PaypalClient paypalClient, IVnPayService vnPayservice)
+		{
+			_paypalClient = paypalClient;
+			db = context;
+			_vnPayservice = vnPayservice;
+		}
+
+		public List<CartItem> Cart => HttpContext.Session.Get<List<CartItem>>(MySetting.CART_KEY) ?? new List<CartItem>();
+
 		public IActionResult Index()
 		{
 			return View(Cart);
 		}
+
 		public IActionResult AddToCart(int id, int quantity = 1)
 		{
 			var gioHang = Cart;
@@ -79,10 +86,23 @@ namespace Ecommerce.Controllers
 
 		[Authorize]
 		[HttpPost]
-		public IActionResult Checkout(CheckoutVM model)
+		public IActionResult Checkout(CheckoutVM model, string payment = "COD")
 		{
 			if (ModelState.IsValid)
 			{
+				if (payment == "Thanh toán VNPay")
+				{
+					var vnPayModel = new VnPaymentRequestModel
+					{
+						Amount = Cart.Sum(p => p.ThanhTien),
+						CreatedDate = DateTime.Now,
+						Description = $"{model.HoTen} {model.DienThoai}",
+						FullName = model.HoTen,
+						OrderId = new Random().Next(1000, 100000)
+					};
+					return Redirect(_vnPayservice.CreatePaymentUrl(HttpContext, vnPayModel));
+				}
+
 				var customerId = HttpContext.User.Claims.SingleOrDefault(p => p.Type == MySetting.CLAIM_CUSTOMERID).Value;
 				var khachHang = new KhachHang();
 				if (model.GiongKhachHang)
@@ -188,5 +208,30 @@ namespace Ecommerce.Controllers
 		}
 
 		#endregion
+
+		[Authorize]
+		public IActionResult PaymentFail()
+		{
+			return View();
+		}
+
+		[Authorize]
+		public IActionResult PaymentBackCallBack()
+		{
+			var response = _vnPayservice.PaymentExecute(Request.Query);
+
+			if (response == null || response.VnPayResponseCode != "00")
+			{
+				TempData["Message"] = $"Lỗi thanh toán VN Pay: {response.VnPayResponseCode}";
+				return RedirectToAction("PaymentFail");
+			}
+
+
+			// Lưu đơn hàng vô database
+
+			TempData["Message"] = $"Thanh toán VNPay thành công";
+			return RedirectToAction("PaymentSuccess");
+		}
+
 	}
 }

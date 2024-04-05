@@ -2,6 +2,8 @@
 using Ecommerce.Helpers;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
+using Ecommerce.Services;
+
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -34,7 +36,7 @@ builder.Services.AddSingleton(x=> new PaypalClient(
     builder.Configuration["PaypalOptions:Mode"]
   
     ));
-
+builder.Services.AddSingleton<IVnPayService, VnPayService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
