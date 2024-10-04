@@ -1,84 +1,61 @@
 ﻿@model Ecommerce.Data.HangHoa
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Chi tiết sản phẩm";
 }
 
-<h1>Details</h1>
+<div class="container mt-4">
+    <section class="mb-5">
+        <h1 class="h3 text-center mb-4">Chi Tiết Sản Phẩm</h1>
+        <hr />
+        <div class="row">
+            <div class="col-lg-4 mb-4">
+                <div class="card">
+                    <img src="/img/HangHoa/@Model.Hinh" alt="Ảnh sản phẩm" class="card-img-top" />
+                    <div class="card-body">
+                        <h5 class="card-title text-primary">@Model.TenHh</h5>
+                        <p class="card-text text-muted">Mã hàng hóa: @Model.MaHh</p>
+                        <p class="card-text text-success"><strong>Đơn giá:</strong> @Html.DisplayFor(model => model.DonGia) VND</p>
+                        <p class="card-text text-danger"><strong>Giảm giá:</strong> @Html.DisplayFor(model => model.GiamGia)%</p>
+                        <p class="card-text"><strong>Số lần xem:</strong> @Html.DisplayFor(model => model.SoLanXem)</p>
+     @*                    <p class="card-text"><strong>Ngày sản xuất:</strong> @Html.DisplayFor(model => model.NgaySx.ToString("dd/MM/yyyy"))</p> *@
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <h4 class="text-primary">Thông tin chi tiết</h4>
+                <dl class="row">
+                    <dt class="col-sm-3">Tên Alias:</dt>
+                    <dd class="col-sm-9">@Html.DisplayFor(model => model.TenAlias)</dd>
 
-<div>
-    <h4>HangHoa</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TenHh)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TenHh)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TenAlias)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TenAlias)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MoTaDonVi)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MoTaDonVi)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DonGia)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DonGia)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Hinh)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Hinh)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NgaySx)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NgaySx)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.GiamGia)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.GiamGia)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SoLanXem)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SoLanXem)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MoTa)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MoTa)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MaLoaiNavigation)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MaLoaiNavigation.MaLoai)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MaNccNavigation)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MaNccNavigation.MaNcc)
-        </dd>
-    </dl>
+                    <dt class="col-sm-3">Mô Tả Đơn Vị:</dt>
+                    <dd class="col-sm-9">@Html.DisplayFor(model => model.MoTaDonVi)</dd>
+
+                    <dt class="col-sm-3">Mô Tả:</dt>
+                    <dd class="col-sm-9">@Html.DisplayFor(model => model.MoTa)</dd>
+
+                    <dt class="col-sm-3">Mã Loại:</dt>
+                    <dd class="col-sm-9">@Html.DisplayFor(model => model.MaLoaiNavigation.TenLoai)</dd>
+
+                    <dt class="col-sm-3">Mã NCC:</dt>
+                    <dd class="col-sm-9">@Html.DisplayFor(model => model.MaNccNavigation.TenCongTy)</dd>
+                </dl>
+            </div>
+        </div>
+    </section>
+    <div class="d-flex justify-content-between">
+        <a class="btn btn-warning" asp-action="Edit" asp-route-id="@Model?.MaHh">
+            <i class="bi bi-pencil"></i> Sửa
+        </a>
+        <a class="btn btn-secondary" asp-action="Index">
+            <i class="bi bi-arrow-left"></i> Quay lại danh sách
+        </a>
+        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@Model?.MaHh" onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này không?');">
+            <i class="bi bi-trash"></i> Xóa
+        </a>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.MaHh">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+
+@section Styles {
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+}

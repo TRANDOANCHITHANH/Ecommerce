@@ -1,16 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Ecommerce.Data;
 
 public partial class NhanVien
 {
+    [Display(Name = "Mã Nhân Viên")]
     public string MaNv { get; set; } = null!;
 
+    [Display(Name = "Họ Tên")]
     public string HoTen { get; set; } = null!;
 
+    [Display(Name = "Email")]
     public string Email { get; set; } = null!;
 
+    [Display(Name = "Mật Khẩu")]
     public string? MatKhau { get; set; }
 
     public virtual ICollection<ChuDe> ChuDes { get; set; } = new List<ChuDe>();

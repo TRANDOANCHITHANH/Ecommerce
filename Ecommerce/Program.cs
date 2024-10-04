@@ -34,7 +34,6 @@ builder.Services.AddSingleton(x=> new PaypalClient(
     builder.Configuration["PaypalOptions:AppId"],
     builder.Configuration["PaypalOptions:AppScret"],
     builder.Configuration["PaypalOptions:Mode"]
-  
     ));
 builder.Services.AddSingleton<IVnPayService, VnPayService>();
 var app = builder.Build();
